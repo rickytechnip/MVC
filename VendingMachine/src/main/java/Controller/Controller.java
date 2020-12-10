@@ -61,7 +61,7 @@ public class Controller {
             int itemAmount = getInputInt();
             
             try{
-                serviceLayer.processTransaction(itemId, itemAmount);
+                serviceLayer.processTransaction(itemId, itemAmount, userCent);
             }
             catch(InsufficientFundsException e){
                 view.insufficientMoney();
