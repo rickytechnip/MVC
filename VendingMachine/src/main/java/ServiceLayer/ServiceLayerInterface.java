@@ -5,7 +5,6 @@
  */
 package ServiceLayer;
 
-import DTO.Change;
 import DTO.Item;
 import java.util.List;
 
@@ -14,16 +13,18 @@ import java.util.List;
  * @author chris
  */
 public interface ServiceLayerInterface {
-    
-    List <Item> getAllItems();
+
+    List<Item> getAllItems();
     //Return a list of all items in the inventory
-    
-    Item getItem (int id);
+
+    Item getItem(int id);
     //Returns the requested item by id
-    
+
     void updateItem(int id, Item item);
     
-    Change calculateChange (double rawChange);
+    void buyItem (int id, double availableFunds);
     
-    String changeToString (Change change);
+ 
+    
+    
 }

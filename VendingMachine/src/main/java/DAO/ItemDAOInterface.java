@@ -23,6 +23,9 @@ public interface ItemDAOInterface {
     void updateItem(int id, Item item);
     //Updates the given item's information
     
+    boolean inStock (int id);
+    //Returns true if the given item is in stock.
+    
     void loadItems();
     //Loads items stored in the data file.
     

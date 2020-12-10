@@ -150,4 +150,20 @@ public class ItemDAOImplementation implements ItemDAOInterface {
         return marshalled;
     }
 
+    @Override
+    public boolean inStock(int id) {
+        
+        boolean inStock = false;
+        
+        for (Item item: items)
+        {
+            if ((item.getId()== id) & (item.getStock()>0))
+            {
+                return true;
+            }
+        }
+        
+        return inStock;
+    }
+
 }
