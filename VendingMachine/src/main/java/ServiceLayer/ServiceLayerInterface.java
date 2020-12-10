@@ -5,6 +5,7 @@
  */
 package ServiceLayer;
 
+import DTO.Change;
 import DTO.Item;
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface ServiceLayerInterface {
     //Returns the requested item by id
     
     void updateItem(int id, Item item);
+    
+    Change calculateChange (double rawChange);
+    
+    String changeToString (Change change);
 }

@@ -17,10 +17,10 @@ public interface ItemDAOInterface {
     List <Item> getAllItems();
     //Return a list of all items in the inventory
     
-    Item getItem (String id);
+    Item getItem (int id);
     //Returns the requested item by id
     
-    void updateItem(String id, Item item);
+    void updateItem(int id, Item item);
     //Updates the given item's information
     
     void loadItems();
@@ -28,4 +28,9 @@ public interface ItemDAOInterface {
     
     void saveItems();
     //Saves the current inventory into the data file.
+    
+    
+    Item unmarshallItem(String itemString);
+    
+    String marshallItem (Item item);
 }
