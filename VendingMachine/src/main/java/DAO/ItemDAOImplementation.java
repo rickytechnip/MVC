@@ -6,6 +6,12 @@
 package DAO;
 
 import DTO.Item;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,10 +24,12 @@ public class ItemDAOImplementation implements ItemDAOInterface {
 
     List<Item> items = new ArrayList<>();
     public final String ITEM_RECORD;
+    static final String DELIMITER = "::";
 
     public ItemDAOImplementation() {
 
         ITEM_RECORD = "item_file.txt";
+        loadItems();
     }
 
     public ItemDAOImplementation(String ITEM_RECORD) {
@@ -30,12 +38,25 @@ public class ItemDAOImplementation implements ItemDAOInterface {
 
     @Override
     public List<Item> getAllItems() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        return items;
     }
 
     @Override
     public Item getItem(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        int rawId = Integer.parseInt(id);
+        Item requestedItem = new Item ();
+        
+        for (Item item: items)
+        {
+            if (item.getId() == rawId)
+            {
+                requestedItem =  item;
+                break;
+            }
+        }
+        return requestedItem;
     }
 
     @Override
@@ -45,23 +66,74 @@ public class ItemDAOImplementation implements ItemDAOInterface {
 
     @Override
     public void loadItems() {
-        
-        Scanner reader;
-        
+
+        Scanner reader = null;
+
         try {
-            
+            reader = new Scanner(new BufferedReader(new FileReader(ITEM_RECORD)));
+        } catch (FileNotFoundException e) {
+            //TODO
+
         }
-        
-        catch (Exception e)
-        {
-            
+
+        String currentLine;
+        Item currentItem;
+
+        while (reader.hasNextLine()) {
+            currentLine = reader.nextLine();
+            if (currentLine.contains("id")) {
+                continue;
+            }
+
+            currentItem = unmarshallItem(currentLine);
+            items.add(currentItem);
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        reader.close();
+
     }
 
     @Override
     public void saveItems() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        PrintWriter writer = null;
+
+        try {
+            writer = new PrintWriter(new FileWriter(ITEM_RECORD));
+
+        } catch (IOException e) {
+            //TODO
+        }
+        for (Item item : items) {
+            writer.println(marshallItem(item));
+        }
+
+        writer.close();
+
+    }
+
+    @Override
+    public Item unmarshallItem(String itemString) {
+
+        String[] rawItem = itemString.split(DELIMITER);
+        Item incomingItem = new Item();
+        incomingItem.setId(Integer.parseInt(rawItem[0]));
+        incomingItem.setName(rawItem[1]);
+        incomingItem.setCost(Double.parseDouble(rawItem[2]));
+        incomingItem.setStock(Integer.parseInt(rawItem[3]));
+
+        return incomingItem;
+
+    }
+
+    @Override
+    public String marshallItem(Item item) {
+
+        String marshalled = "";
+
+        marshalled = item.getId() + DELIMITER + item.getName() + DELIMITER + item.getCost() + DELIMITER + item.getStock();
+
+        return marshalled;
     }
 
 }

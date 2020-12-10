@@ -28,4 +28,9 @@ public interface ItemDAOInterface {
     
     void saveItems();
     //Saves the current inventory into the data file.
+    
+    
+    Item unmarshallItem(String itemString);
+    
+    String marshallItem (Item item);
 }
