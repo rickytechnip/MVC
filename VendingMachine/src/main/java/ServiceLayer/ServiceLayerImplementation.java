@@ -83,5 +83,8 @@ public class ServiceLayerImplementation implements ServiceLayerInterface {
    {
        return change.toString();
    }
+   
+   
+   public void processTransaction(int itemId, int itemAmount) throws NoItemInventoryException,InsufficientFundsException {}
     
 }

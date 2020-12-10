@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import ServiceLayer.ServiceLayerImplementation;
+import ServiceLayer.*;
 import View.View;
 import java.util.*;
 import DTO.Item;
@@ -49,15 +49,27 @@ public class Controller {
         do{
             List<Integer> changeList = null;
             view.showItems(getInventory());
+            
+            view.askMoney();
+            int userCent = (int) Math.floor(getInputDouble() * 100);
+            
             view.askItems();
             int itemId = getInputInt();
-            
             Item userItem = serviceLayer.getItem(itemId);
             
             view.askNumber();
             int itemAmount = getInputInt();
             
-            if(!isAvailable(itemId, itemAmount)){
+            try{
+                serviceLayer.processTransaction(itemId, itemAmount);
+            }
+            catch(InsufficientFundsException e){
+                view.insufficientMoney();
+                view.moneyReturned();
+                view.bye();
+                continue;
+            }
+            catch(NoItemInventoryException e){
                 view.outOfStock();
                 view.askAgain();
                 int again = getInputInt();
@@ -68,22 +80,11 @@ public class Controller {
                     break;
                 }
             }
-            view.askMoney();
-            int userCent = (int) Math.floor(getInputDouble() * 100);
+            
             int cost = (int) Math.floor(calculatePrice(itemId, itemAmount) * 100);
-            
-            if(cost > userCent){
-                view.insufficientMoney();
-                view.moneyReturned();
-                view.bye();
-                continue;
-            }
-            
             changeList = change.makeChange(userCent, cost);
             
-            processTransaction(itemId, itemAmount);
             view.printOutCome(itemId, userItem.getName(), itemAmount, changeList);
-            
             view.askAgain();
             int again = getInputInt();
             if(again == 1)
@@ -91,12 +92,6 @@ public class Controller {
             else
                 view.bye();
         }while(true);
-    }
-    
-    public void processTransaction(int itemId, int itemAmount){
-        Item currentItem = serviceLayer.getItem(itemId);
-        Item updatedItem = new Item(currentItem.getName(), currentItem.getCost(), currentItem.getId(), currentItem.getStock() - itemAmount);
-        serviceLayer.updateItem(itemId, updatedItem);
     }
     
     public double calculatePrice(int itemId, int itemAmount){

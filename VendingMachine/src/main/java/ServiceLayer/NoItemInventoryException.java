@@ -9,6 +9,6 @@ package ServiceLayer;
  *
  * @author chris
  */
-public class NoItemInventoryException {
+public class NoItemInventoryException  extends Exception{
     
 }
