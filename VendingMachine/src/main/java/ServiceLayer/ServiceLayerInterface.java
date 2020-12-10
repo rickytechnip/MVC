@@ -17,8 +17,8 @@ public interface ServiceLayerInterface {
     List <Item> getAllItems();
     //Return a list of all items in the inventory
     
-    Item getItem (String id);
+    Item getItem (int id);
     //Returns the requested item by id
     
-    void updateItem(String id, Item item);
+    void updateItem(int id, Item item);
 }

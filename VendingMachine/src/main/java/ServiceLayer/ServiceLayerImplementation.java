@@ -20,12 +20,12 @@ public class ServiceLayerImplementation implements ServiceLayerInterface {
     }
 
     @Override
-    public Item getItem(String id) {
+    public Item getItem(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void updateItem(String id, Item item) {
+    public void updateItem(int id, Item item) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
