@@ -43,14 +43,14 @@ public class ItemDAOImplementation implements ItemDAOInterface {
     }
 
     @Override
-    public Item getItem(String id) {
+    public Item getItem(int id) {
         
-        int rawId = Integer.parseInt(id);
+        
         Item requestedItem = new Item ();
         
         for (Item item: items)
         {
-            if (item.getId() == rawId)
+            if (item.getId() == id)
             {
                 requestedItem =  item;
                 break;
@@ -60,8 +60,22 @@ public class ItemDAOImplementation implements ItemDAOInterface {
     }
 
     @Override
-    public void updateItem(String id, Item item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateItem(int id, Item item) {
+        
+      
+        
+        for (Item dirtyItem: items )
+        {
+            if (dirtyItem.getId() == id)
+            {
+                dirtyItem.setName(item.getName());
+                dirtyItem.setCost(item.getCost());
+                dirtyItem.setStock(item.getStock());
+                break;
+            }
+        }
+        
+        
     }
 
     @Override
