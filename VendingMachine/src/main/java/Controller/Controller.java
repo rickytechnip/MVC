@@ -47,6 +47,7 @@ public class Controller {
     
     public void run(){
         do{
+            List<Integer> changeList = null;
             view.showItems(getInventory());
             view.askItems();
             int itemId = getInputInt();
@@ -78,7 +79,7 @@ public class Controller {
                 continue;
             }
             
-            List<Integer> changeList = change.makeChange(userCent, cost);
+            changeList = change.makeChange(userCent, cost);
             
             processTransaction(itemId, itemAmount);
             view.printOutCome(itemId, userItem.getName(), itemAmount, changeList);
@@ -92,15 +93,10 @@ public class Controller {
         }while(true);
     }
     
-    
-    
-    public double processTransaction(int itemId, int itemAmount){
+    public void processTransaction(int itemId, int itemAmount){
         Item currentItem = serviceLayer.getItem(itemId);
         Item updatedItem = new Item(currentItem.getName(), currentItem.getCost(), currentItem.getId(), currentItem.getStock() - itemAmount);
         serviceLayer.updateItem(itemId, updatedItem);
-        
-        
-        return calculatePrice(itemId, itemAmount);
     }
     
     public double calculatePrice(int itemId, int itemAmount){
