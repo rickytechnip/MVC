@@ -55,8 +55,8 @@ public class View {
         System.out.println("Error number input, please input again: ");
     }
     
-    public void outOfStock(){
-        System.out.println("Sorry, the Item you choose is out of stock");
+    public void insufficientStock(){
+        System.out.println("Sorry, the Item you choose is insufficient in stock");
     }
     
     public void moneyReturned(){

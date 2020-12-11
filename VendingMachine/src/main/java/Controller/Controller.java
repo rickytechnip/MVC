@@ -103,7 +103,7 @@ public class Controller {
                     }
                 }
                 catch(NoItemInventoryException e){
-                    view.outOfStock();
+                    view.insufficientStock();
                     view.askAgain();
                     int again = getInputInt();
                     if(again == 1){
@@ -134,8 +134,11 @@ public class Controller {
             int again = getInputInt();
             if(again == 1)
                 continue;
-            else
+            else{
                 view.bye();
+                break;
+            }
+                
         }while(true);
     }
     

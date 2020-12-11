@@ -28,7 +28,7 @@ public class Change {
     }
     
     public List<Integer> makeChange(int userInputCent, int priceAmountCent){
-        int chargeAmountCent = priceAmountCent - userInputCent;
+        int chargeAmountCent = userInputCent - priceAmountCent;
         
         List<Integer> chargeList = new ArrayList<>();
         
