@@ -30,6 +30,10 @@ public class View {
         System.out.println("what kind of item do you want? please input item id:");
     }
     
+    public void showEmptyInventory(){
+        System.out.println("Sorry , we run out of stock.");
+    }
+    
     public void askNumber(){
         System.out.println("how many do you want: ");
     }

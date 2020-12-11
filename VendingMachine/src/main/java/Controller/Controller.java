@@ -48,7 +48,14 @@ public class Controller {
     public void run(){
         do{
             List<Integer> changeList = null;
-            view.showItems(getInventory());
+            List<Item> currentInventory = getInventory();
+            if(currentInventory == null || currentInventory.size() == 0){
+                view.showEmptyInventory();
+                view.bye();
+                break;
+            }
+               
+            view.showItems(currentInventory);
             
             view.askMoney();
             int userCent = (int) Math.floor(getInputDouble() * 100);
