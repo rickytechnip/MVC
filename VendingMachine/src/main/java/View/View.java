@@ -34,6 +34,15 @@ public class View {
         System.out.println("how many do you want: ");
     }
     
+    public void showInputMoney(int inputCent, int leftOverAmount){
+        System.out.println("Currently you input " + inputCent/100 + " dollars" + inputCent%100 + " Cent");
+        System.out.println("you need " + leftOverAmount/100 + " dollars" + leftOverAmount%100 + " Cent more.");
+    }
+    
+    public void moreMoneyOrRestartOrQuit(){
+        System.out.println("Would you input more money or restart? 1 for more money, 0 for restart, 2 for quit.");
+    }
+    
     public void askMoney(){
         System.out.println("Please input you money amount:");
     }

@@ -60,27 +60,65 @@ public class Controller {
             view.askNumber();
             int itemAmount = getInputInt();
             
-            try{
-                serviceLayer.processTransaction(itemId, itemAmount, userCent);
-            }
-            catch(InsufficientFundsException e){
-                view.insufficientMoney();
-                view.moneyReturned();
-                view.bye();
-                continue;
-            }
-            catch(NoItemInventoryException e){
-                view.outOfStock();
-                view.askAgain();
-                int again = getInputInt();
-                if(again == 1)
-                    continue;
-                else{
-                    view.bye();
-                    break;
+            boolean transactionSuccessful;
+            boolean restart;
+            boolean wannaQuit;
+            do{
+                transactionSuccessful = false;
+                restart = false;
+                wannaQuit = false;
+                
+                try{
+                    serviceLayer.processTransaction(itemId, itemAmount, userCent);
+                    transactionSuccessful = true;
                 }
-            }
+                catch(InsufficientFundsException e){
+                    view.insufficientMoney();
+                    int shortage = (int)((itemAmount * userItem.getCost()) * 100) - userCent;
+                    view.showInputMoney(userCent, shortage);
+                    view.moreMoneyOrRestartOrQuit();
+                    
+                    int again = getInputInt();
+                    if(again == 1){
+                        view.askMoney();
+                        userCent += (int) Math.floor(getInputDouble() * 100);
+                        continue;
+                    }
+                    else if(again == 0) {
+                        view.moneyReturned();
+                        restart = true;
+                        break;
+                    }
+                    else{
+                        view.moneyReturned();
+                        wannaQuit = true;
+                        break;
+                    }
+                }
+                catch(NoItemInventoryException e){
+                    view.outOfStock();
+                    view.askAgain();
+                    int again = getInputInt();
+                    if(again == 1){
+                        view.moneyReturned();
+                        restart = true;
+                        break;
+                    }
+                    else{
+                        wannaQuit = true;
+                        break;
+                    }
+                }
+            }while(!transactionSuccessful);
             
+            if(restart)
+                continue;
+            if(wannaQuit){
+                view.bye();
+                break;
+            }
+                
+                        
             int cost = (int) Math.floor(calculatePrice(itemId, itemAmount) * 100);
             changeList = change.makeChange(userCent, cost);
             

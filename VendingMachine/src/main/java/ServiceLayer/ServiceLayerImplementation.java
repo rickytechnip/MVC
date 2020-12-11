@@ -85,6 +85,6 @@ public class ServiceLayerImplementation implements ServiceLayerInterface {
    }
    
    
-   public void processTransaction(int itemId, int itemAmount, int suerInputCent) throws NoItemInventoryException,InsufficientFundsException {}
+   public void processTransaction(int itemId, int itemAmount, int userInputCent) throws NoItemInventoryException,InsufficientFundsException {}
     
 }
