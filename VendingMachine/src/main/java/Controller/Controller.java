@@ -145,15 +145,44 @@ public class Controller {
     }
     
     public int getInputInt(){
-        Scanner input = new Scanner(System.in);
-        int userInputInt = input.nextInt();
+        int userInputInt = 0;
+        boolean inputSuccess;
+        Scanner input = null;
+        do{
+            inputSuccess = false;
+            try{
+                input = new Scanner(System.in);
+                userInputInt = input.nextInt();
+                if(userInputInt < 0)
+                    throw new InputMismatchException();
+                inputSuccess = true;
+            }
+            catch(InputMismatchException e){
+                view.errorNumber();
+                continue;
+            }
+        }while(! inputSuccess);
         return userInputInt;
     }
     
     public double getInputDouble(){
-        Scanner input = new Scanner(System.in);
-        int userInputInt;
-        double userInputDouble = input.nextDouble();
+        double userInputDouble = 0;
+        boolean inputSuccess;
+        Scanner input = null;
+        do{
+            inputSuccess = false;
+            try{
+                input = new Scanner(System.in);
+                userInputDouble = input.nextDouble();
+                if(userInputDouble < 0)
+                    throw new InputMismatchException();
+                inputSuccess = true;
+            }
+            catch(InputMismatchException e){
+                view.errorNumber();
+                continue;
+            }
+        }while(! inputSuccess);
         return userInputDouble;
     }
 }

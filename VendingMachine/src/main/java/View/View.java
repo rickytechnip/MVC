@@ -51,6 +51,10 @@ public class View {
         System.out.println("Please input you money amount:");
     }
     
+    public void errorNumber(){
+        System.out.println("Error number input, please input again: ");
+    }
+    
     public void outOfStock(){
         System.out.println("Sorry, the Item you choose is out of stock");
     }
