@@ -22,7 +22,7 @@ public interface ServiceLayerInterface {
 
     void updateItem(int id, Item item);
     
-    void buyItem (int id, double availableFunds);
+    int processTransaction (int id, int quantity, int availableFunds) throws NoItemInventoryException, InsufficientFundsException;
     
  
     

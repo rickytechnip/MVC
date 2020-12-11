@@ -116,7 +116,7 @@ public class ItemDAOImplementation implements ItemDAOInterface {
             writer = new PrintWriter(new FileWriter(ITEM_RECORD));
 
         } catch (IOException e) {
-            //TODO
+            System.err.println("Items are not being saved");
         }
         for (Item item : items) {
             writer.println(marshallItem(item));
@@ -151,13 +151,13 @@ public class ItemDAOImplementation implements ItemDAOInterface {
     }
 
     @Override
-    public boolean inStock(int id) {
+    public boolean inStock(int id, int quantity) {
         
         boolean inStock = false;
         
         for (Item item: items)
         {
-            if ((item.getId()== id) & (item.getStock()>0))
+            if ((item.getId()== id) & (item.getStock()>= quantity))
             {
                 return true;
             }

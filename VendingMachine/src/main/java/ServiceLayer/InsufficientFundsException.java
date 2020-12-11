@@ -10,5 +10,15 @@ package ServiceLayer;
  * @author chris
  */
 public class InsufficientFundsException extends Exception{
+
+    public InsufficientFundsException(String message) {
+        super(message);
+    }
+
+    public InsufficientFundsException(String message, Exception e) {
+        super(message, e);
+    }
+    
+    
     
 }

@@ -11,4 +11,12 @@ package ServiceLayer;
  */
 public class NoItemInventoryException extends Exception{
     
+    public NoItemInventoryException(String message) {
+        super(message);
+    }
+
+    public NoItemInventoryException(String message, Exception e) {
+        super(message, e);
+    }
+    
 }
