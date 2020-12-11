@@ -24,9 +24,7 @@ public class ServiceLayerImplementation implements ServiceLayerInterface {
     ItemDAOImplementation iDao = new ItemDAOImplementation();
     AuditDAOImplementation aDao = new AuditDAOImplementation();
 
-
-
-    public ServiceLayerImplementation( ) {
+    public ServiceLayerImplementation() {
         this.iDao = iDao;
         this.aDao = aDao;
     }
@@ -35,14 +33,14 @@ public class ServiceLayerImplementation implements ServiceLayerInterface {
     public List<Item> getAllItems() {
 
         List<Item> items = iDao.getAllItems();
-        
+
         Iterator<Item> itr = items.iterator();
-    while (itr.hasNext()) {
-      Item item = itr.next();
-      if (item.getStock() <= 0) {
-        itr.remove();
-      }
-    }
+        while (itr.hasNext()) {
+            Item item = itr.next();
+            if (item.getStock() <= 0) {
+                itr.remove();
+            }
+        }
 
         return items;
     }
@@ -67,21 +65,22 @@ public class ServiceLayerImplementation implements ServiceLayerInterface {
         Item chosenItem = getItem(id);
         Audit transactionLog;
         String errorMessage = "";
-        int auditID = aDao.getNextId();
+
         LocalDateTime auditTime = LocalDateTime.now();
 
         if (chosenItem.getStock() < quantity) {
             errorMessage = "Sorry we only have " + chosenItem.getStock() + " more of these in stock.";
-            transactionLog = new Audit(auditID, auditTime, errorMessage);
+            transactionLog = new Audit(auditTime, errorMessage);
             aDao.saveAudit(transactionLog);
             throw new NoItemInventoryException(errorMessage);
+            
         }
 
         if ((int) (chosenItem.getCost() * quantity * 100) > availableFunds) {
 
             errorMessage = "Insufficient funds. You can only purchase "
                     + ((int) (availableFunds / chosenItem.getCost())) + "of these items.";
-            transactionLog = new Audit(auditID, auditTime, errorMessage);
+            transactionLog = new Audit(auditTime, errorMessage);
             aDao.saveAudit(transactionLog);
             throw new InsufficientFundsException(errorMessage);
         }
@@ -89,8 +88,9 @@ public class ServiceLayerImplementation implements ServiceLayerInterface {
         change = (availableFunds - (int) (chosenItem.getCost() * quantity * 100));
         Item postTransac = new Item(chosenItem.getName(), chosenItem.getCost(), id, chosenItem.getStock() - quantity);
         updateItem(id, postTransac);
-        transactionLog = new Audit(auditID, auditTime,
+        transactionLog = new Audit(auditTime,
                 ("Item purchased: " + chosenItem.getName() + " - Quantity: " + quantity));
+        aDao.saveAudit(transactionLog);
 
         return change;
     }

@@ -15,8 +15,6 @@ public interface AuditDAOInterface {
 
     void saveAudit(Audit audit);
     
-    void determineNextId();
-    
-    int getNextId();
+  
     
 }

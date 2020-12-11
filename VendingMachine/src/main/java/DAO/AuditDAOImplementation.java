@@ -22,26 +22,21 @@ import java.util.Scanner;
 public class AuditDAOImplementation implements AuditDAOInterface {
 
     final String AUDIT_RECORD;
-    private int nextId = 1;
+
 
     public AuditDAOImplementation() {
 
         this.AUDIT_RECORD = "audit_file.txt";
-        determineNextId();
+       
     }
 
     public AuditDAOImplementation(String AUDIT_RECORD) {
         this.AUDIT_RECORD = AUDIT_RECORD;
-        determineNextId();
+       
     }
 
-    public int getNextId() {
-        return nextId;
-    }
-
-    public void setNextId(int nextId) {
-        this.nextId = nextId;
-    }
+ 
+  
 
     @Override
     public void saveAudit(Audit audit) {
@@ -49,7 +44,7 @@ public class AuditDAOImplementation implements AuditDAOInterface {
         PrintWriter writer = null;
 
         try {
-            writer = new PrintWriter(new FileWriter(AUDIT_RECORD), true);
+            writer = new PrintWriter(new FileWriter(AUDIT_RECORD, true));
 
         } catch (IOException e) {
             System.err.println("Audit not logged");
@@ -61,25 +56,6 @@ public class AuditDAOImplementation implements AuditDAOInterface {
 
     }
 
-    public void determineNextId() {
-
-        Scanner reader = null;
-
-        try {
-            reader = new Scanner(new BufferedReader(new FileReader(AUDIT_RECORD)));
-        } catch (FileNotFoundException e) {
-                
-            return;
-        }
-
-        String currentLine;
-        while (reader.hasNextLine()) {
-            nextId += 1;
-            currentLine = reader.nextLine();
-        }
-
-        reader.close();
-
-    }
+  
 
 }

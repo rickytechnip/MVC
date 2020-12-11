@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Audit {
     
-    private int id;
+ 
     private LocalDateTime auditDate;
     private String auditInfo;
     private final String DELIMITER = "::";
@@ -22,8 +22,8 @@ public class Audit {
     public Audit() {
     }
 
-    public Audit(int id, LocalDateTime auditDate, String auditInfo) {
-        this.id = id;
+    public Audit(LocalDateTime auditDate, String auditInfo) {
+        
         this.auditDate = auditDate;
         this.auditInfo = auditInfo;
     }
@@ -37,13 +37,7 @@ public class Audit {
         this.auditInfo = auditInfo;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public LocalDateTime getAuditDate() {
         return auditDate;
@@ -58,7 +52,7 @@ public class Audit {
         
         DateTimeFormatter auditFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd 'at' HH:mm");
 
-        return  id + DELIMITER + auditDate.format(auditFormatter) + DELIMITER+ auditInfo;
+        return  auditDate.format(auditFormatter) + DELIMITER+ auditInfo;
     }
     
     
