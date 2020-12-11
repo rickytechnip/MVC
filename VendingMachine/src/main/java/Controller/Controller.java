@@ -17,7 +17,7 @@ import DTO.Item;
  */
 public class Controller {
     
-    private ServiceLayerImplementation serviceLayer;
+    private ServiceLayerImplementation serviceLayer = new ServiceLayerImplementation();
     private View view;
     private Change change;
     
@@ -25,8 +25,8 @@ public class Controller {
     private String customItemName;
     private int customItemNumber;
     
-    public Controller(ServiceLayerImplementation inputServiceLayer, View inputView){
-        serviceLayer = inputServiceLayer;
+    public Controller( View inputView){
+        
         view = inputView;
         change = new Change();
     }

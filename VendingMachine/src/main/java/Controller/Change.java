@@ -17,7 +17,7 @@ public class Change {
     private static final int nickel = 5;
     private static final int dime = 10;
     private static final int quarter = 25;
-    private List<Integer> value_list = null;
+    private List<Integer> value_list = new ArrayList<>();
     
     
     public Change(){

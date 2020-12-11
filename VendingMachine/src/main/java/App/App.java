@@ -15,8 +15,9 @@ import Controller.Controller;
 public class App {
     public static void main(String [] args){
         View appView = new View();
-        ServiceLayerImplementation appService = new ServiceLayerImplementation();
-        Controller appController = new Controller(appService, appView);
+        
+       
+        Controller appController = new Controller( appView);
         appController.run();
     }
     

@@ -56,7 +56,7 @@ public class Audit {
     @Override
     public String toString() {
         
-        DateTimeFormatter auditFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd 'at' HH:mm z");
+        DateTimeFormatter auditFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd 'at' HH:mm");
 
         return  id + DELIMITER + auditDate.format(auditFormatter) + DELIMITER+ auditInfo;
     }

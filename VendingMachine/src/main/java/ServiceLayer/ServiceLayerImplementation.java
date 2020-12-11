@@ -5,11 +5,14 @@
  */
 package ServiceLayer;
 
+import DAO.AuditDAOImplementation;
 import DAO.AuditDAOInterface;
+import DAO.ItemDAOImplementation;
 import DAO.ItemDAOInterface;
 import DTO.Audit;
 import DTO.Item;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,26 +21,28 @@ import java.util.List;
  */
 public class ServiceLayerImplementation implements ServiceLayerInterface {
 
-    ItemDAOInterface iDao;
-    AuditDAOInterface aDao;
+    ItemDAOImplementation iDao = new ItemDAOImplementation();
+    AuditDAOImplementation aDao = new AuditDAOImplementation();
 
-    public ServiceLayerImplementation() {
-    }
 
-    public ServiceLayerImplementation(ItemDAOInterface iDao) {
+
+    public ServiceLayerImplementation( ) {
         this.iDao = iDao;
+        this.aDao = aDao;
     }
 
     @Override
     public List<Item> getAllItems() {
 
         List<Item> items = iDao.getAllItems();
-
-        for (Item item : items) {
-            if (item.getStock() <= 0) {
-                items.remove(item);
-            }
-        }
+        
+        Iterator<Item> itr = items.iterator();
+    while (itr.hasNext()) {
+      Item item = itr.next();
+      if (item.getStock() <= 0) {
+        itr.remove();
+      }
+    }
 
         return items;
     }

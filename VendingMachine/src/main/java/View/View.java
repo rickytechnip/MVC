@@ -20,8 +20,8 @@ public class View {
     
     public void showItems(List<Item> inputItemList){
         for(Item item : inputItemList){
-            System.out.println("Currently we have " + 
-                    item.getId() + " " + item.getName() + 
+            System.out.println("Currently we have: " + 
+                    item.getId() + " " + item.getName() + " $" +
                     item.getCost() + " " + item.getStock());
         }
     }
