@@ -8,6 +8,8 @@ package DTO;
 /**
  *
  * @author chris
+ * 
+ * Regular POJO Item object used as a Data Transfer Object
  */
 public class Item {
     

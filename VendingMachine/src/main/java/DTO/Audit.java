@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 /**
  *
  * @author chris
+ * 
+ * Simple POJO used as a Data Transfer Object for audits. 
  */
 public class Audit {
     

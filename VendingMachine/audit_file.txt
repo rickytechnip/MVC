@@ -8,3 +8,5 @@
 2020/12/11 at 11:06::Item purchased: Skittles - Quantity: 1
 2020/12/11 at 11:06::Item purchased: Coke - Quantity: 1
 2020/12/11 at 11:08::Item purchased: Coke - Quantity: 1
+2020/12/11 at 11:12::Item purchased: Coke - Quantity: 3
+2020/12/11 at 11:13::Item purchased: Skittles - Quantity: 1

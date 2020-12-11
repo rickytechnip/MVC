@@ -14,7 +14,7 @@ import DTO.Audit;
 public interface AuditDAOInterface {
 
     void saveAudit(Audit audit);
-    
+    //Writes the outcome of the most recent transaction into the audit file.
   
     
 }

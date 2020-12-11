@@ -21,8 +21,10 @@ public interface ServiceLayerInterface {
     //Returns the requested item by id
 
     void updateItem(int id, Item item);
+    //Updates changes to an item experienced during the program, such as changes in stock.
     
     int processTransaction (int id, int quantity, int availableFunds) throws NoItemInventoryException, InsufficientFundsException;
+    //Handles the logic and exceptions encountered during a single purchase.
     
  
     

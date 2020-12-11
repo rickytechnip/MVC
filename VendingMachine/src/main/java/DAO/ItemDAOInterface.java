@@ -34,6 +34,8 @@ public interface ItemDAOInterface {
     
     
     Item unmarshallItem(String itemString);
+    //Unmarshall's the item string into the components of the Item Object.
     
     String marshallItem (Item item);
+    //Returns a string of the Item data fields ready to be writtten into the file.
 }
