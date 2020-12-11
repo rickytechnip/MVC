@@ -3,24 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ServiceLayer;
+package DAO;
+
+import DTO.Audit;
 
 /**
  *
  * @author chris
  */
-public lass InsufficientFundsException extends Exception{
+public interface AuditDAOInterface {
 
-        pub
-            super(message); 
-
-        
-            ic Insufficient
-            super(message, e);
-    }
+    void saveAudit(Audit audit);
     
+    void determineNextId();
     
+    int getNextId();
     
-
-        
-
+}
