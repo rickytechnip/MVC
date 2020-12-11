@@ -55,37 +55,38 @@ public class ServiceLayerImplementation implements ServiceLayerInterface {
     }
 
     @Override
-    public int processTransaction(int id, int quantity, int availableFunds) throws NoItemInventoryException, InsufficientFundsException{
+    public int processTransaction(int id, int quantity, int availableFunds)
+            throws NoItemInventoryException, InsufficientFundsException {
 
         int change = availableFunds;
         Item chosenItem = getItem(id);
         Audit transactionLog;
         String errorMessage = "";
-       int auditID = aDao.getNextId();
-       LocalDateTime auditTime = LocalDateTime.now();
-        
-        
-            if (chosenItem.getStock() < quantity) {
-                 errorMessage = "Sorry we only have " + chosenItem.getStock() + " more of these in stock.";
-                 transactionLog = new Audit (auditID, auditTime, errorMessage);
-                 aDao.saveAudit(transactionLog);
-                throw new NoItemInventoryException(errorMessage);
-            }
+        int auditID = aDao.getNextId();
+        LocalDateTime auditTime = LocalDateTime.now();
 
-            if ((int)(chosenItem.getCost() * quantity * 100) > availableFunds) {
-                
-                errorMessage = "Insufficient funds. You can only purchase " + ((int)(availableFunds/chosenItem.getCost()))
-                                                         + "of these items.";
-                 transactionLog = new Audit (auditID, auditTime, errorMessage);
-                 aDao.saveAudit(transactionLog);
-                throw new InsufficientFundsException(errorMessage);
-            }
+        if (chosenItem.getStock() < quantity) {
+            errorMessage = "Sorry we only have " + chosenItem.getStock() + " more of these in stock.";
+            transactionLog = new Audit(auditID, auditTime, errorMessage);
+            aDao.saveAudit(transactionLog);
+            throw new NoItemInventoryException(errorMessage);
+        }
 
-        change = (availableFunds - (int)(chosenItem.getCost() * quantity * 100));
-        Item postTransac = new Item (chosenItem.getName(), chosenItem.getCost(), id, chosenItem.getStock() - quantity);
+        if ((int) (chosenItem.getCost() * quantity * 100) > availableFunds) {
+
+            errorMessage = "Insufficient funds. You can only purchase "
+                    + ((int) (availableFunds / chosenItem.getCost())) + "of these items.";
+            transactionLog = new Audit(auditID, auditTime, errorMessage);
+            aDao.saveAudit(transactionLog);
+            throw new InsufficientFundsException(errorMessage);
+        }
+
+        change = (availableFunds - (int) (chosenItem.getCost() * quantity * 100));
+        Item postTransac = new Item(chosenItem.getName(), chosenItem.getCost(), id, chosenItem.getStock() - quantity);
         updateItem(id, postTransac);
-        transactionLog = new Audit(auditID, auditTime, ("Item purchased: " + chosenItem.getName() + " - Quantity: " + quantity));
-        
+        transactionLog = new Audit(auditID, auditTime,
+                ("Item purchased: " + chosenItem.getName() + " - Quantity: " + quantity));
+
         return change;
     }
 

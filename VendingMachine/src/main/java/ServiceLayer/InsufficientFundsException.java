@@ -9,16 +9,18 @@ package ServiceLayer;
  *
  * @author chris
  */
-public class InsufficientFundsException extends Exception{
+public lass InsufficientFundsException extends Exception{
 
-    public InsufficientFundsException(String message) {
-        super(message);
-    }
+        pub
+            super(message); 
 
-    public InsufficientFundsException(String message, Exception e) {
-        super(message, e);
+        
+            ic Insufficient
+            super(message, e);
     }
     
     
     
-}
+
+        
+
